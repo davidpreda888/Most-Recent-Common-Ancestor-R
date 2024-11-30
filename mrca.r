@@ -1,20 +1,4 @@
-V = list() #creates an empty list
-for(i in 1:100){
-  V[[i]] <- vector() #assigns an empty vector to the ith element of list V
-}
-counter <- 0
-repeat{
-  i <- sample(1:100)
-  aux <- c(sample(1:10, 2, replace = FALSE))
-  union(aux, V[[i]])
-  counter <- counter + 1
-  if(counter == 200){
-    break
-  }
-}
-
-
-
+#First analysis of how the simulation would work
 simulate_MRCA <- function(N){
   parents <-list()
   kids<-list()
@@ -36,7 +20,7 @@ simulate_MRCA <- function(N){
   }
 }
 
-
+#MRCA with replacement
 MRCA<- function(N){
   gen0 <- list()
   gen1 <- list()
@@ -73,10 +57,12 @@ MRCA<- function(N){
   }
   return(gencount) 
 }
-MRCA(4000) #test code
+MRCA(4000) #Test code
 
+#Creates a table with the results
 x <- table(replicate(MRCA(4000), 25))
 
+#MRCA without replacement
 MRCA<- function(N){
   gencounter<- 0
   old_gen <- list()
@@ -102,14 +88,14 @@ MRCA<- function(N){
 }
 MRCA(4000)
 
-#2.4
+#Multiple tests with different population sizes
 replicate(25,MRCA(4000))
 replicate(25,MRCA(2000))
 replicate(25,MRCA(1000))
 replicate(25,MRCA(500))
 
 
-#2.6
+#Multiple test with replication as True or False
 largepop_repT <- replicate(40,MRCA(1000))
 smallpop_repT <- replicate(40,MRCA(400))
 largepop_repF <- replicate(40,MRCA(1000))
